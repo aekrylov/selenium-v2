@@ -18,7 +18,7 @@ import java.util.function.Function;
  */
 public class TestBase {
 
-    protected WebDriver driver;
+    protected static AccountData user = new AccountData("test879454", "ajsdbd7aolad09");
 
     protected TestManager manager;
 

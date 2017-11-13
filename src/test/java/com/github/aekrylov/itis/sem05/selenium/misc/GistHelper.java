@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
+import java.util.stream.IntStream;
 
 /**
  * By Anton Krylov (anthony.kryloff@gmail.com)
@@ -47,6 +48,17 @@ public class GistHelper extends HelperBase {
 
     public void pressCreateButton() {
         driver.findElement(By.xpath("//*[contains(text(), 'Create secret gist')]")).click();
+    }
+
+    public boolean gistPresent(Gist gist) {
+        wainUntil(5, ExpectedConditions.presenceOfElementLocated(By.cssSelector(".gist-content .Details")));
+
+        List<WebElement> dataElems = driver.findElements(By.cssSelector(".data"));
+
+        return gist.getDescription().equals(driver.findElement(By.cssSelector(".gist-content .Details")).getText().trim())
+                && gist.files.size() == dataElems.size()
+                && IntStream.range(0, gist.files.size())
+                .allMatch(i -> gist.files.get(i).fileContents.equals(dataElems.get(i).getText()));
     }
 
 }
