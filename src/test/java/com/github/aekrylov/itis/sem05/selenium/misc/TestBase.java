@@ -27,8 +27,9 @@ public class TestBase {
     @Before
     public void setUp() throws Exception {
         manager = new TestManager();
-
         now = System.currentTimeMillis();
+
+        manager.nav().goHome();
     }
 
 }

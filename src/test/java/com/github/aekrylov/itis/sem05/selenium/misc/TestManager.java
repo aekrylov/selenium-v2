@@ -14,6 +14,7 @@ public class TestManager {
     private final WebDriver driver;
     private final AccountHelper accounts;
     private final GistHelper gists;
+    private final NavigationHelper nav;
 
     public TestManager() {
         System.setProperty("webdriver.gecko.driver","/home/anth/prog/lib/selenium/geckodriver"); // TODO
@@ -23,6 +24,7 @@ public class TestManager {
 
         accounts = new AccountHelper(this);
         gists = new GistHelper(this);
+        nav = new NavigationHelper(this);
     }
 
     public WebDriver getDriver() {
@@ -35,5 +37,9 @@ public class TestManager {
 
     public GistHelper gists() {
         return gists;
+    }
+
+    public NavigationHelper nav() {
+        return nav;
     }
 }

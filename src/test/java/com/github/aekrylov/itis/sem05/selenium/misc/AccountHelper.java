@@ -21,7 +21,8 @@ public class AccountHelper extends HelperBase {
     }
 
     public void login(AccountData account) {
-        driver.get(baseUrl);
+        if (isLoggedIn())
+            return;
 
         driver.findElement(By.xpath("//a[contains(text(), 'Sign in')]")).click();
 
@@ -45,7 +46,7 @@ public class AccountHelper extends HelperBase {
     }
 
     /**
-     * Logs out from current session
+     * Logs out from current session. If user is not logged in, then does nothing
      *
      * @return true if user was logged in
      */
