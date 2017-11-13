@@ -1,4 +1,4 @@
-package com.github.aekrylov.itis.sem05.selenium;
+package com.github.aekrylov.itis.sem05.selenium.misc;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +36,7 @@ public class Gist {
         this.files = files;
     }
 
-    static class GistFile {
+    public static class GistFile {
         String filename;
         String fileContents;
 

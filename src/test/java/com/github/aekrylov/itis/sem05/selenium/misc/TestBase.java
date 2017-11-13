@@ -1,4 +1,4 @@
-package com.github.aekrylov.itis.sem05.selenium;
+package com.github.aekrylov.itis.sem05.selenium.misc;
 
 import org.junit.Before;
 import org.openqa.selenium.By;

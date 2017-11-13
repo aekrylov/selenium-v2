@@ -1,5 +1,6 @@
 package com.github.aekrylov.itis.sem05.selenium;
 
+import com.github.aekrylov.itis.sem05.selenium.misc.TestBase;
 import org.junit.Test;
 
 /**

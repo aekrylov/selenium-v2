@@ -1,4 +1,4 @@
-package com.github.aekrylov.itis.sem05.selenium;
+package com.github.aekrylov.itis.sem05.selenium.misc;
 
 /**
  * By Anton Krylov (anthony.kryloff@gmail.com)
