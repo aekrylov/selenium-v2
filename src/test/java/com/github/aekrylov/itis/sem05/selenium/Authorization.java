@@ -11,7 +11,7 @@ public class Authorization extends TestBase {
 
     @Test
     public void testLogin() {
-        login();
+        manager.accounts().login();
     }
 
 }

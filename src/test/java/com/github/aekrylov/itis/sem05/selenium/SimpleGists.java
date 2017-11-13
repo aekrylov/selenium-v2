@@ -22,15 +22,14 @@ public class SimpleGists extends TestBase {
     public void basicGist() {
         Gist gist = new Gist("Test gist " + now, Collections.singletonList(new Gist.GistFile(null, "Lorem ipsum " + now)));
 
-        login();
+        manager.accounts().login();
 
-        driver.findElement(By.xpath("//input[contains(@placeholder, 'description')]")).sendKeys(gist.getDescription());
+        manager.gists().fillGist(gist);
 
-        //write contents
-        fillGistFile(gist.getFiles().get(0), driver.findElement(By.cssSelector(".file.js-code-editor")));
-        
         //hit create button
-        driver.findElement(By.xpath("//*[contains(text(), 'Create secret gist')]")).click();
+        manager.gists().pressCreateButton();
+
+        manager.gists().wainUntil(5, ExpectedConditions.presenceOfElementLocated(By.cssSelector(".gist-content .Details")));
 
         assertEquals(gist.getDescription(), driver.findElement(By.cssSelector(".gist-content .Details")).getText().trim());
         assertEquals(gist.getFiles().get(0).getFileContents(), driver.findElement(By.cssSelector(".data")).getText().trim());
@@ -38,7 +37,7 @@ public class SimpleGists extends TestBase {
 
     @Test
     public void gistWithMultipleFiles() {
-        login();
+        manager.accounts().login();
 
         Gist gist = new Gist();
         gist.setDescription("Test gist " + now);
@@ -46,16 +45,9 @@ public class SimpleGists extends TestBase {
         gist.getFiles().add(new Gist.GistFile("file1.txt", "File1 contents " + now));
         gist.getFiles().add(new Gist.GistFile("file2.txt", "File2 contents " + now));
 
-        wainUntil(5, ExpectedConditions.presenceOfElementLocated(By.xpath("//button[contains(text(), 'Add file')]")));
-        driver.findElement(By.xpath("//button[contains(text(), 'Add file')]")).click();
+        manager.gists().fillGist(gist);
 
-        List<WebElement> elements = driver.findElements(By.cssSelector(".file.js-code-editor"));
-
-        fillGistFile(gist.getFiles().get(0), elements.get(0));
-        fillGistFile(gist.getFiles().get(1), elements.get(1));
-
-        //hit create button
-        driver.findElement(By.xpath("//*[contains(text(), 'Create secret gist')]")).click();
+        manager.gists().pressCreateButton();
 
         //todo asserts
     }
