@@ -18,15 +18,13 @@ import java.util.function.Function;
  */
 public class TestBase {
 
-    protected static AccountData user = new AccountData("test879454", "ajsdbd7aolad09");
-
     protected TestManager manager;
 
     protected long now;
 
     @Before
     public void setUp() throws Exception {
-        manager = new TestManager();
+        manager = TestManager.getInstance();
         now = System.currentTimeMillis();
 
         manager.nav().goHome();

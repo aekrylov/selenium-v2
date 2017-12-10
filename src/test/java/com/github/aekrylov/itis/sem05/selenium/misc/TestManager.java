@@ -2,6 +2,7 @@ package com.github.aekrylov.itis.sem05.selenium.misc;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 import java.util.concurrent.TimeUnit;
 
@@ -16,11 +17,18 @@ public class TestManager {
     private final GistHelper gists;
     private final NavigationHelper nav;
 
-    public TestManager() {
+    private static final TestManager instance = new TestManager();
+
+    public static TestManager getInstance() {
+        return instance;
+    }
+
+    private TestManager() {
         System.setProperty("webdriver.gecko.driver","/home/anth/prog/lib/selenium/geckodriver"); // TODO
 
         driver = new FirefoxDriver();
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        //driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
 
         accounts = new AccountHelper(this);
         gists = new GistHelper(this);
