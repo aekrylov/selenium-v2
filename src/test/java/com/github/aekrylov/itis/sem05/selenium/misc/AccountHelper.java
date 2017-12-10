@@ -19,8 +19,12 @@ public class AccountHelper extends HelperBase {
     }
 
     public void login(AccountData account) {
-        if (isLoggedIn())
-            return;
+        if (isLoggedIn()) {
+            if(isLoggedIn(account)) {
+                return;
+            }
+            logout();
+        }
 
         driver.findElement(By.xpath("//a[contains(text(), 'Sign in')]")).click();
 

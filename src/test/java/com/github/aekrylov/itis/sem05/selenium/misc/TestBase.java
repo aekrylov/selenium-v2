@@ -1,16 +1,10 @@
 package com.github.aekrylov.itis.sem05.selenium.misc;
 
 import org.junit.Before;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.concurrent.TimeUnit;
-import java.util.function.Function;
+import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * By Anton Krylov (anthony.kryloff@gmail.com)
@@ -28,6 +22,13 @@ public class TestBase {
         now = System.currentTimeMillis();
 
         manager.nav().goHome();
+    }
+
+    public static String randomString(int len) {
+        Random random = new Random();
+        return IntStream.range(0, len)
+                .mapToObj(i -> String.valueOf(((char) ('a' + random.nextInt('z' - 'a')))))
+                .collect(Collectors.joining());
     }
 
 }

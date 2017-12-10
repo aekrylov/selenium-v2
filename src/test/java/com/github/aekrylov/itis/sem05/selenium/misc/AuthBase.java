@@ -2,7 +2,6 @@ package com.github.aekrylov.itis.sem05.selenium.misc;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
 
 import java.util.Properties;
 
@@ -12,7 +11,7 @@ import java.util.Properties;
  */
 public class AuthBase extends TestBase {
 
-    protected static Properties authProperties = PropertiesReader.read("auth.properties");
+    protected static Properties authProperties = DataHelper.read("auth.properties");
 
     protected static AccountData user = new AccountData(
             authProperties.getProperty("username"),

@@ -1,6 +1,7 @@
 package com.github.aekrylov.itis.sem05.selenium;
 
 import com.github.aekrylov.itis.sem05.selenium.misc.AuthBase;
+import com.github.aekrylov.itis.sem05.selenium.misc.DataHelper;
 import com.github.aekrylov.itis.sem05.selenium.misc.Gist;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -15,6 +16,8 @@ import static org.junit.Assert.assertTrue;
  * Date: 10/31/17 10:52 PM
  */
 public class SimpleGists extends AuthBase {
+
+    private static Gist[] gists = DataHelper.readJson("gists.json", Gist[].class);
 
     @Test
     public void basicGist() {
@@ -32,11 +35,7 @@ public class SimpleGists extends AuthBase {
 
     @Test
     public void gistWithMultipleFiles() {
-        Gist gist = new Gist();
-        gist.setDescription("Test gist " + now);
-
-        gist.getFiles().add(new Gist.GistFile("file1.txt", "File1 contents " + now));
-        gist.getFiles().add(new Gist.GistFile("file2.txt", "File2 contents " + now));
+        Gist gist = gists[0];
 
         manager.gists().fillGist(gist);
 
