@@ -3,11 +3,15 @@ package com.github.aekrylov.itis.sem05.selenium;
 import com.github.aekrylov.itis.sem05.selenium.misc.AuthBase;
 import com.github.aekrylov.itis.sem05.selenium.misc.DataHelper;
 import com.github.aekrylov.itis.sem05.selenium.misc.Gist;
+import com.tngtech.java.junit.dataprovider.DataProvider;
+import com.tngtech.java.junit.dataprovider.UseDataProvider;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertTrue;
 
@@ -18,6 +22,16 @@ import static org.junit.Assert.assertTrue;
 public class SimpleGists extends AuthBase {
 
     private static Gist[] gists = DataHelper.readJson("gists.json", Gist[].class);
+
+    @DataProvider
+    public static Object[][] getGists() {
+
+        Gist[][] res = new Gist[gists.length][1];
+        for (int i = 0; i < gists.length; i++) {
+            res[i] = new Gist[]{gists[i]};
+        }
+        return res;
+    }
 
     @Test
     public void basicGist() {
@@ -34,8 +48,8 @@ public class SimpleGists extends AuthBase {
     }
 
     @Test
-    public void gistWithMultipleFiles() {
-        Gist gist = gists[0];
+    @UseDataProvider("getGists")
+    public void gistWithMultipleFiles(Gist gist) {
 
         manager.gists().fillGist(gist);
 

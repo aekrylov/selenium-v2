@@ -1,7 +1,9 @@
 package com.github.aekrylov.itis.sem05.selenium.misc;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 
 import java.util.Properties;
 
@@ -18,13 +20,14 @@ public class AuthBase extends TestBase {
             authProperties.getProperty("password")
     );
 
-    @Before
-    public void setUpLogin() {
+    @BeforeClass
+    public static void beforeClass() {
+        manager.nav().goHome();
         manager.accounts().login(user);
     }
 
-    @After
-    public void tearDownLogin() {
+    @AfterClass
+    public static void afterClass() {
         manager.accounts().logout();
     }
 }

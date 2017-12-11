@@ -57,8 +57,10 @@ public class GistHelper extends HelperBase {
 
         return gist.getDescription().equals(driver.findElement(By.cssSelector(".gist-content .Details")).getText().trim())
                 && gist.files.size() == dataElems.size()
-                && IntStream.range(0, gist.files.size())
-                .allMatch(i -> gist.files.get(i).fileContents.equals(dataElems.get(i).getText()));
+                && dataElems.stream()
+                .allMatch(elem -> gist.files.stream()
+                    .anyMatch(file -> file.fileContents.equals(elem.getText()))
+                );
     }
 
 }
