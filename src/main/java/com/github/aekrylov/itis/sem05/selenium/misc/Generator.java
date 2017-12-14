@@ -7,6 +7,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * By Anton Krylov (anthony.kryloff@gmail.com)
@@ -52,17 +54,17 @@ public class Generator {
     }
 
     private static AccountData generateAccountData() {
-        return new AccountData(TestBase.randomString(8), TestBase.randomString(12));
+        return new AccountData(randomString(8), randomString(12));
     }
 
     private static Gist generateSimpleGist() {
-        return new Gist(TestBase.randomString(24), Collections.singletonList(generateGistFile()));
+        return new Gist(randomString(24), Collections.singletonList(generateGistFile()));
     }
 
     private static Gist generateGist() {
         int numFiles = 1 + random.nextInt(5);
         Gist gist = new Gist();
-        gist.setDescription(TestBase.randomString(24));
+        gist.setDescription(randomString(24));
         for (int i = 0; i < numFiles; i++) {
             gist.getFiles().add(generateGistFile());
         }
@@ -71,6 +73,14 @@ public class Generator {
     }
 
     private static Gist.GistFile generateGistFile() {
-        return new Gist.GistFile(TestBase.randomString(8), TestBase.randomString(64));
+        return new Gist.GistFile(randomString(8), randomString(64));
     }
+
+    public static String randomString(int len) {
+        Random random = new Random();
+        return IntStream.range(0, len)
+                .mapToObj(i -> String.valueOf(((char) ('a' + random.nextInt('z' - 'a')))))
+                .collect(Collectors.joining());
+    }
+
 }

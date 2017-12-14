@@ -10,12 +10,11 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.urlToBe;
  */
 public class NavigationHelper extends HelperBase {
 
-    protected final static Properties props = DataHelper.read("app.properties");
+    protected final String baseUrl;
 
-    protected final static String baseUrl = props.getProperty("base.url");
-
-    public NavigationHelper(TestManager manager) {
+    public NavigationHelper(TestManager manager, String baseUrl) {
         super(manager);
+        this.baseUrl = baseUrl;
     }
 
     public void goHome() {

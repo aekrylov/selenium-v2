@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -19,6 +20,8 @@ public class TestManager {
 
     private static final TestManager instance = new TestManager();
 
+    protected final Properties props = DataHelper.read("app.properties");
+
     public static TestManager getInstance() {
         return instance;
     }
@@ -30,9 +33,11 @@ public class TestManager {
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         //driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
 
+        String baseUrl = props.getProperty("base.url");
+
         accounts = new AccountHelper(this);
         gists = new GistHelper(this);
-        nav = new NavigationHelper(this);
+        nav = new NavigationHelper(this, baseUrl);
     }
 
     public WebDriver getDriver() {
